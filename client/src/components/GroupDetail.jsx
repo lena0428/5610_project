@@ -199,6 +199,12 @@ const GroupDetail = () => {
       </div>
 
       {posts
+        // sort posts where the userId matches dbuser.id to show first
+        .sort((a, b) => {
+          if (a.userId === dbuser.id) return -1;
+          if (b.userId === dbuser.id) return 1;
+          return 0;
+        })
         .map((post) => (
           <Card key={post.id}>
             <Card.Body>
