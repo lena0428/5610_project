@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, List } from 'antd';
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button, Card, Modal } from "react-bootstrap";
@@ -10,7 +9,7 @@ const GroupDetail = () => {
   const [group, setGroup] = useState({});
   const [groups, setGroups] = useState([]);
 
-  const { loginWithRedirect, user } = useAuth0();
+  const { user } = useAuth0();
   const [dbuser, setDbuser] = useState({});
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);

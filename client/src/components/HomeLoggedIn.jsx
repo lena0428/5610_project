@@ -137,72 +137,76 @@ export default function Home() {
 
   return (
     <div>
-      <Message variant="info">
-        Welcome new member{" "}
-        {users.length > 0 ? users[users.length - 1].name : ""} to the Student
-        Interest Group Platform!
-      </Message>
-      <Card key={post.id}>
-        <Card.Body>
-          <Card.Text>Content: {post.content}</Card.Text>
-          <Card.Subtitle>Posted by: {post.userName}</Card.Subtitle>
-          <Card.Subtitle>Post Date: {new Date(post.postDate).toLocaleString()}</Card.Subtitle>
-        </Card.Body>
-      </Card>
-      <SearchBar onSearch={handleSearch} />
-      <Button variant="primary" onClick={handleShow}>
-        Add New Group
-      </Button>
-      <Row>
-        {filteredGroups.map((group) => (
-          <Col key={group.id} sm={12} md={6} lg={4} xl={3}>
-            <GroupCard group={group} />
-          </Col>
-        ))}
-      </Row>
+      <main className="py-3">
+        <Container>
+          <Message variant="info">
+            Welcome new member{" "}
+            {users.length > 0 ? users[users.length - 1].name : ""} to the Student
+            Interest Group Platform!
+          </Message>
+          <Card key={post.id}>
+            <Card.Body>
+              <Card.Text>Content: {post.content}</Card.Text>
+              <Card.Subtitle>Posted by: {post.userName}</Card.Subtitle>
+              <Card.Subtitle>Post Date: {new Date(post.postDate).toLocaleString()}</Card.Subtitle>
+            </Card.Body>
+          </Card>
+          <SearchBar onSearch={handleSearch} />
+          <Button variant="primary" onClick={handleShow}>
+            Add New Group
+          </Button>
+          <Row>
+            {filteredGroups.map((group) => (
+              <Col key={group.id} sm={12} md={6} lg={4} xl={3}>
+                <GroupCard group={group} />
+              </Col>
+            ))}
+          </Row>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Group</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Container>
-            <form>
-              <div className="form-group">
-                <label htmlFor="name">Group Name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  name="name"
-                  value={groupName}
-                  onChange={(e) => setGroupName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="description">Description</label>
-                <textarea
-                  className="form-control"
-                  id="description"
-                  name="description"
-                  value={groupDescription}
-                  onChange={(e) => setGroupDescription(e.target.value)}
-                  required
-                ></textarea>
-              </div>
-            </form>
-          </Container>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSubmit}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Add New Group</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Container>
+                <form>
+                  <div className="form-group">
+                    <label htmlFor="name">Group Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      name="name"
+                      value={groupName}
+                      onChange={(e) => setGroupName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                      className="form-control"
+                      id="description"
+                      name="description"
+                      value={groupDescription}
+                      onChange={(e) => setGroupDescription(e.target.value)}
+                      required
+                    ></textarea>
+                  </div>
+                </form>
+              </Container>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleSubmit}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </Container>
+      </main>
     </div>
   );
 }
