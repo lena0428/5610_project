@@ -115,6 +115,7 @@ app.get("/api/users/:userId/groups", async (req, res) => {
   res.json(groups);
 });
 
+
 app.get("/api/groups/:id", async (req, res) => {
   const { id } = req.params;
   const group = await prisma.group.findUnique({

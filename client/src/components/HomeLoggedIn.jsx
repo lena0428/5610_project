@@ -30,7 +30,6 @@ export default function Home() {
 
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
-    navigate(`/groups/${searchTerm}`);
   };
 
   useEffect(() => {
@@ -152,7 +151,7 @@ export default function Home() {
             </Card>
           )}
 
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar onSearch={handleSearch} filteredGroups = {filteredGroups} isLogged={true}/>
           <Button variant="primary" onClick={handleShow}>
             Add New Group
           </Button>

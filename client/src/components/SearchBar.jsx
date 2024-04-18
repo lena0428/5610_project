@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import "../style/searchbar.css";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({ onSearch }) => {
+
+const SearchBar = ({ onSearch, filterGroups, isLogged }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -12,6 +15,19 @@ const SearchBar = ({ onSearch }) => {
 
   const handleSearch = () => {
     onSearch(searchTerm);
+    if (filterGroups) {
+      if (isLogged) {
+        navigate(`/app/search/${searchTerm}`);
+      } else {
+        navigate(`/search/${searchTerm}`);
+      }
+    } else {
+      if (isLogged) {
+        navigate(`/app/search`);
+      } else {
+        navigate(`/search`);
+      }
+    }
   };
 
   return (

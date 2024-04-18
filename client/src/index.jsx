@@ -57,7 +57,11 @@ root.render(
               <Route index element={<Home />} />
               <Route path="/groups/:id" element={<GroupDetailWithoutLogin />} />
               <Route path="/verify-user" element={<VerifyUser />} />
+              <Route path="/search" element={<Home />} />
+              <Route path="/search/:searchTerm" element={<Home />} />
               <Route path="/app" element={<HomeLoggedIn />} />
+              <Route path="/app/search" element={<HomeLoggedIn />} />
+              <Route path="/app/search/:searchTerm" element={<HomeLoggedIn />} />
               <Route path="/app/groups/:id" element={<GroupDetail />} />
               <Route path="/app/debugger" element={<AuthDebugger />} />
               <Route path="/app/profile" element={<Profile />} />
