@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Avatar, List } from 'antd';
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button, Card, Modal } from "react-bootstrap";
@@ -197,7 +198,25 @@ const GroupDetail = () => {
           Post
         </button>
       </div>
-
+{/* 
+      {posts
+        // sort posts where the userId matches dbuser.id to show first
+        .sort((a, b) => {
+          if (a.userId === dbuser.id) return -1;
+          if (b.userId === dbuser.id) return 1;
+          return 0;
+        })
+        .map((post) => (
+          <List.Item>
+            <List.Item.Meta
+              itemLayout="horizontal"
+              dataSource={post}
+              avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${post.userId}`} />}
+              title={<a>{new Date(post.postDate).toLocaleString()}</a>}
+              description={post.content}
+            />
+          </List.Item>
+        ))} */}
       {posts
         // sort posts where the userId matches dbuser.id to show first
         .sort((a, b) => {

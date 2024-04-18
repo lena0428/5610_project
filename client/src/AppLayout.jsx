@@ -2,7 +2,7 @@ import "./style/appLayout.css";
 
 import { Outlet, Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Container } from "react-bootstrap";
+import { Layout } from "antd";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
@@ -23,9 +23,9 @@ export default function AppLayout() {
     <div>
       <Header title="Student Interest Groups" />
       <main >
-        <Container >
+        <Layout >
           <Outlet />
-        </Container>
+        </Layout>
       </main>
       <Footer />
     </div>
