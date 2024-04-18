@@ -21,9 +21,6 @@ export default function Home() {
   const [dbuser, setDbuser] = useState({});
   const [post, setPost] = useState({});
 
-
-
-
   const navigate = useNavigate();
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   const signUp = () => loginWithRedirect({ screen_hint: "signup" });
@@ -70,7 +67,7 @@ export default function Home() {
       .get(`http://localhost:8000/api/users`)
       .then((response) => {
         setUsers(response.data);
-        console.log(users)
+        console.log(users);
       })
       .catch((error) => {
         console.error(error);
@@ -85,8 +82,8 @@ export default function Home() {
     axios
       .get(`http://localhost:8000/api/post`)
       .then((response) => {
-        setPost(response.data)
-        console.log(response.data)
+        setPost(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -113,9 +110,9 @@ export default function Home() {
         `http://localhost:8000/api/groups/${dbuser.id}`,
         group
       );
-      handleJoinGroup(dbuser.id, response.data.id)
-      console.log(response)
-      console.log(response.data.id)
+      handleJoinGroup(dbuser.id, response.data.id);
+      console.log(response);
+      console.log(response.data.id);
       fetchGroups();
       handleClose();
     } catch (error) {
@@ -134,23 +131,27 @@ export default function Home() {
       });
   }
 
-
   return (
     <div>
       <main className="py-3">
         <Container>
           <Message variant="info">
             Welcome new member{" "}
-            {users.length > 0 ? users[users.length - 1].name : ""} to the Student
-            Interest Group Platform!
+            {users.length > 0 ? users[users.length - 1].name : ""} to the
+            Student Interest Group Platform!
           </Message>
-          <Card key={post.id}>
-            <Card.Body>
-              <Card.Text>Content: {post.content}</Card.Text>
-              <Card.Subtitle>Posted by: {post.userName}</Card.Subtitle>
-              <Card.Subtitle>Post Date: {new Date(post.postDate).toLocaleString()}</Card.Subtitle>
-            </Card.Body>
-          </Card>
+          {post && (
+            <Card key={post.id}>
+              <Card.Body>
+                <Card.Text>Content: {post.content}</Card.Text>
+                <Card.Subtitle>Posted by: {post.userName}</Card.Subtitle>
+                <Card.Subtitle>
+                  Post Date: {new Date(post.postDate).toLocaleString()}
+                </Card.Subtitle>
+              </Card.Body>
+            </Card>
+          )}
+
           <SearchBar onSearch={handleSearch} />
           <Button variant="primary" onClick={handleShow}>
             Add New Group
