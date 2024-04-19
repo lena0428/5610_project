@@ -16,7 +16,6 @@ export default function Home() {
   const [filteredGroups, setFilteredGroups] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-
   const navigate = useNavigate();
   const { loginWithRedirect } = useAuth0();
   const signUp = () => loginWithRedirect({ screen_hint: "signup" });
@@ -32,7 +31,9 @@ export default function Home() {
 
   const fetchGroups = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/groups");
+      const response = await fetch(
+        "${process.env.REACT_APP_API_URL}/api/groups"
+      );
       const data = await response.json();
       setGroups(data);
       setFilteredGroups(data);
@@ -52,10 +53,10 @@ export default function Home() {
   useEffect(() => {
     fetchUsers();
   }, []);
-  
+
   function fetchUsers() {
     axios
-      .get(`http://localhost:8000/api/users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/users`)
       .then((response) => {
         setUsers(response.data);
       })
@@ -63,8 +64,6 @@ export default function Home() {
         console.error(error);
       });
   }
-
- 
 
   return (
     <div>
@@ -75,7 +74,11 @@ export default function Home() {
             {users.length > 0 ? users[users.length - 1].name : ""} to the
             Student Interest Group Platform!
           </Message>
-          <SearchBar onSearch={handleSearch} filteredGroups = {filteredGroups} isLogged={false}/>
+          <SearchBar
+            onSearch={handleSearch}
+            filteredGroups={filteredGroups}
+            isLogged={false}
+          />
           <Row>
             {filteredGroups.map((group) => (
               <Col key={group.id} sm={12} md={6} lg={4} xl={3}>
