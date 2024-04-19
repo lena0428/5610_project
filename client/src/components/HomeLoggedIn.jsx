@@ -39,7 +39,7 @@ export default function Home() {
   const fetchGroups = async () => {
     try {
       const response = await fetch(
-        "${process.env.REACT_APP_API_URL}/api/groups"
+        `${process.env.REACT_APP_API_URL}/api/groups`
       );
       const data = await response.json();
       setGroups(data);
