@@ -43,7 +43,7 @@ const Header = ({ title }) => {
                     <FaUser /> Profile
                   </Nav.Link>
                   <Nav.Link
-                    onClick={() => logout({ returnTo: window.location.origin })}
+                    onClick={() => logout({ returnTo: process.env.REACT_APP_BASE_URL })}
                   >
                     <RiLogoutBoxRLine /> Log Out
                   </Nav.Link>
