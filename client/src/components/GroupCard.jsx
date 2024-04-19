@@ -15,7 +15,7 @@ const GroupCard = ({ group }) => {
   //   function fetchMembers() {
   //     // Fetch list of members in the group
   //     axios
-  //       .get(`http://localhost:8000/api/groups/${group.id}/users`)
+  //       .get(`${process.env.REACT_APP_API_URL}/api/groups/${group.id}/users`)
   //       .then((response) => {
   //         setMembers(response.data);
   //       })

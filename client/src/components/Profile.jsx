@@ -17,7 +17,7 @@ export default function Profile() {
 
   function fetchUser() {
     axios
-      .get(`http://localhost:8000/api/users/auth0/${user.sub}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/users/auth0/${user.sub}`)
       .then((response) => {
         setDbuser(response.data);
         setEditedUser(response.data);
@@ -35,7 +35,7 @@ export default function Profile() {
 
   function fetchGroups() {
     axios
-      .get(`http://localhost:8000/api/users/${dbuser.id}/groups`)
+      .get(`${process.env.REACT_APP_API_URL}/api/users/${dbuser.id}/groups`)
       .then((response) => {
         setGroups(response.data);
       })
@@ -44,7 +44,6 @@ export default function Profile() {
       });
   }
 
-
   function handleInputChange(event) {
     const { name, value } = event.target;
     setEditedUser({ ...editedUser, [name]: value });
@@ -52,7 +51,10 @@ export default function Profile() {
 
   function handleUpdate() {
     axios
-      .put(`http://localhost:8000/api/users/${dbuser.id}`, editedUser)
+      .put(
+        `${process.env.REACT_APP_API_URL}/api/users/${dbuser.id}`,
+        editedUser
+      )
       .then((response) => {
         setDbuser(response.data);
         setIsEditing(false);

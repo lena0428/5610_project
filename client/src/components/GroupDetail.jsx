@@ -18,12 +18,10 @@ const GroupDetail = () => {
   const [isCreator, setIsCreator] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-
-
   useEffect(() => {
     fetchGroup();
     if (user) {
-      fetchUser()
+      fetchUser();
     }
   }, []);
 
@@ -41,16 +39,16 @@ const GroupDetail = () => {
 
   useEffect(() => {
     if (groups.length > 0 && group.id) {
-      console.log(groups)
+      console.log(groups);
       const isUserMember = groups.some((g) => g.id === group.id);
       setIsMember(isUserMember);
     }
-    setIsCreator(group.userId == dbuser.id)
+    setIsCreator(group.userId == dbuser.id);
   }, [groups, group]);
 
   function fetchGroups() {
     axios
-      .get(`http://localhost:8000/api/users/${dbuser.id}/groups`)
+      .get(`${process.env.REACT_APP_API_URL}/api/users/${dbuser.id}/groups`)
       .then((response) => {
         setGroups(response.data);
       })
@@ -61,7 +59,7 @@ const GroupDetail = () => {
 
   function fetchGroup() {
     axios
-      .get(`http://localhost:8000/api/groups/${groupId}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/groups/${groupId}`)
       .then((response) => {
         setGroup(response.data);
       })
@@ -72,9 +70,12 @@ const GroupDetail = () => {
 
   const handleJoinGroup = () => {
     axios
-      .post(`http://localhost:8000/api/users/${dbuser.id}/groups/${groupId}`, {
-        role: "member",
-      })
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/users/${dbuser.id}/groups/${groupId}`,
+        {
+          role: "member",
+        }
+      )
       .then((response) => {
         console.log("Joined group successfully:", response.data);
         setIsMember(true);
@@ -86,7 +87,9 @@ const GroupDetail = () => {
 
   const handleExitGroup = () => {
     axios
-      .delete(`http://localhost:8000/api/users/${dbuser.id}/groups/${groupId}`)
+      .delete(
+        `${process.env.REACT_APP_API_URL}/api/users/${dbuser.id}/groups/${groupId}`
+      )
       .then((response) => {
         console.log("Exited group successfully:", response.data);
         setIsMember(false);
@@ -98,7 +101,7 @@ const GroupDetail = () => {
 
   function fetchUser() {
     axios
-      .get(`http://localhost:8000/api/users/auth0/${user.sub}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/users/auth0/${user.sub}`)
       .then((response) => {
         setDbuser(response.data);
       })
@@ -109,10 +112,12 @@ const GroupDetail = () => {
 
   function fetchPosts() {
     axios
-      .get(`http://localhost:8000/api/groups/${groupId}/posts`)
+      .get(`${process.env.REACT_APP_API_URL}/api/groups/${groupId}/posts`)
       .then((response) => {
         const postsWithUserName = response.data.map(async (post) => {
-          const userResponse = await axios.get(`http://localhost:8000/api/users/${post.userId}`);
+          const userResponse = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/users/${post.userId}`
+          );
           return { ...post, userName: userResponse.data.name };
         });
         Promise.all(postsWithUserName).then((posts) => {
@@ -126,7 +131,10 @@ const GroupDetail = () => {
 
   const handleCreatePost = () => {
     axios
-      .post(`http://localhost:8000/api/groups/${groupId}/${dbuser.id}/posts`, { content: newPostContent })
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/groups/${groupId}/${dbuser.id}/posts`,
+        { content: newPostContent }
+      )
       .then((response) => {
         console.log("Created post successfully:", response.data);
         setNewPostContent("");
@@ -139,7 +147,7 @@ const GroupDetail = () => {
 
   const handleDeletePost = (postId) => {
     axios
-      .delete(`http://localhost:8000/api/posts/${postId}`)
+      .delete(`${process.env.REACT_APP_API_URL}/api/posts/${postId}`)
       .then((response) => {
         console.log("Deleted post successfully:", response.data);
         fetchPosts();
@@ -155,7 +163,7 @@ const GroupDetail = () => {
 
   const confirmDeleteGroup = () => {
     axios
-      .delete(`http://localhost:8000/api/groups/${groupId}`)
+      .delete(`${process.env.REACT_APP_API_URL}/api/groups/${groupId}`)
       .then((response) => {
         console.log("Group deleted successfully");
         navigate("/app");
@@ -166,11 +174,20 @@ const GroupDetail = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", columnGap: "4rem" }}>
-      <h1 style={{ paddingTop: "4rem", paddingBottom: "2rem" }}> {group.name}</h1>
+    <div
+      style={{ display: "flex", flexDirection: "column", columnGap: "4rem" }}
+    >
+      <h1 style={{ paddingTop: "4rem", paddingBottom: "2rem" }}>
+        {" "}
+        {group.name}
+      </h1>
       <p style={{ paddingBottom: "2rem" }}>{group.description}</p>
       {isMember ? (
-        <Button variant="danger" onClick={handleExitGroup} style={{ width: "fit-content" }}>
+        <Button
+          variant="danger"
+          onClick={handleExitGroup}
+          style={{ width: "fit-content" }}
+        >
           Exit Group
         </Button>
       ) : (
@@ -179,7 +196,11 @@ const GroupDetail = () => {
         </Button>
       )}
       {isCreator && (
-        <Button variant="danger" onClick={handleDeleteGroup} style={{ width: "fit-content" }}>
+        <Button
+          variant="danger"
+          onClick={handleDeleteGroup}
+          style={{ width: "fit-content" }}
+        >
           Delete Group
         </Button>
       )}
@@ -193,11 +214,16 @@ const GroupDetail = () => {
           aria-label="Type your post here"
           aria-describedby="button-addon2"
         />
-        <button className="btn btn-outline-secondary" type="button" onClick={handleCreatePost} id="button-addon2">
+        <button
+          className="btn btn-outline-secondary"
+          type="button"
+          onClick={handleCreatePost}
+          id="button-addon2"
+        >
           Post
         </button>
       </div>
-{/* 
+      {/* 
       {posts
         // sort posts where the userId matches dbuser.id to show first
         .sort((a, b) => {
@@ -228,9 +254,14 @@ const GroupDetail = () => {
             <Card.Body>
               <Card.Text>Content: {post.content}</Card.Text>
               <Card.Subtitle>Posted by: {post.userName}</Card.Subtitle>
-              <Card.Subtitle>Post Date: {new Date(post.postDate).toLocaleString()}</Card.Subtitle>
+              <Card.Subtitle>
+                Post Date: {new Date(post.postDate).toLocaleString()}
+              </Card.Subtitle>
               {post.userId === dbuser.id && (
-                <Button variant="danger" onClick={() => handleDeletePost(post.id)}>
+                <Button
+                  variant="danger"
+                  onClick={() => handleDeletePost(post.id)}
+                >
                   Delete Post
                 </Button>
               )}
@@ -251,7 +282,7 @@ const GroupDetail = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div >
+    </div>
   );
 };
 

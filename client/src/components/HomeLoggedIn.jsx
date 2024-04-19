@@ -38,7 +38,9 @@ export default function Home() {
 
   const fetchGroups = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/groups");
+      const response = await fetch(
+        "${process.env.REACT_APP_API_URL}/api/groups"
+      );
       const data = await response.json();
       setGroups(data);
       setFilteredGroups(data);
@@ -63,7 +65,7 @@ export default function Home() {
 
   function fetchUsers() {
     axios
-      .get(`http://localhost:8000/api/users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/users`)
       .then((response) => {
         setUsers(response.data);
         console.log(users);
@@ -79,7 +81,7 @@ export default function Home() {
 
   function fetchPost() {
     axios
-      .get(`http://localhost:8000/api/post`)
+      .get(`${process.env.REACT_APP_API_URL}/api/post`)
       .then((response) => {
         setPost(response.data);
         console.log(response.data);
@@ -91,9 +93,12 @@ export default function Home() {
 
   const handleJoinGroup = (userId, groupId) => {
     axios
-      .post(`http://localhost:8000/api/users/${userId}/groups/${groupId}`, {
-        role: "member",
-      })
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/users/${userId}/groups/${groupId}`,
+        {
+          role: "member",
+        }
+      )
       .then((response) => {
         console.log("Joined group successfully:", response.data);
       })
@@ -106,7 +111,7 @@ export default function Home() {
     const group = { name: groupName, description: groupDescription };
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/groups/${dbuser.id}`,
+        `${process.env.REACT_APP_API_URL}/api/groups/${dbuser.id}`,
         group
       );
       handleJoinGroup(dbuser.id, response.data.id);
@@ -121,7 +126,7 @@ export default function Home() {
 
   function fetchUser() {
     axios
-      .get(`http://localhost:8000/api/users/auth0/${user.sub}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/users/auth0/${user.sub}`)
       .then((response) => {
         setDbuser(response.data);
       })
@@ -151,7 +156,11 @@ export default function Home() {
             </Card>
           )}
 
-          <SearchBar onSearch={handleSearch} filteredGroups = {filteredGroups} isLogged={true}/>
+          <SearchBar
+            onSearch={handleSearch}
+            filteredGroups={filteredGroups}
+            isLogged={true}
+          />
           <Button variant="primary" onClick={handleShow}>
             Add New Group
           </Button>
