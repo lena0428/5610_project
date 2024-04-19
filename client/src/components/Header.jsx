@@ -43,7 +43,7 @@ const Header = ({ title }) => {
                     <FaUser /> Profile
                   </Nav.Link>
                   <Nav.Link
-                    onClick={() => logout({ returnTo: "https://5610-project.vercel.app"})}
+                    onClick={() => logout({ returnTo: window.location.origin })}
                   >
                     <RiLogoutBoxRLine /> Log Out
                   </Nav.Link>
