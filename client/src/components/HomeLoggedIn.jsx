@@ -139,7 +139,7 @@ export default function Home() {
   return (
     <div>
       <main className="py-3">
-        <Container>
+        <Container >
           <Message variant="info">
             Welcome new member{" "}
             {users.length > 0 ? users[users.length - 1].name : ""} to the
@@ -149,7 +149,6 @@ export default function Home() {
             <Card key={post.id}>
               <Card.Body>
                 <Card.Text>Content: {post.content}</Card.Text>
-                <Card.Subtitle>Posted by: {post.userName}</Card.Subtitle>
                 <Card.Subtitle>
                   Post Date: {new Date(post.postDate).toLocaleString()}
                 </Card.Subtitle>
