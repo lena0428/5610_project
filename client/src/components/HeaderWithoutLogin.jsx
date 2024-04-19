@@ -46,7 +46,7 @@ const HeaderWithoutLogin = ({ title }) => {
                     <FaUser /> Profile
                   </Nav.Link>
                   <Nav.Link
-                    onClick={() => logout({ returnTo: `${process.env.REACT_APP_BASE_URL}` })}
+                    onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                   >
                     <RiLogoutBoxRLine /> Log Out
                   </Nav.Link>
