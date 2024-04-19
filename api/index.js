@@ -6,14 +6,12 @@ import morgan from "morgan";
 import cors from "cors";
 import { auth } from "express-oauth2-jwt-bearer";
 
-
 // this is a middleware that will validate the access token sent by the client
 const requireAuth = auth({
   audience: process.env.AUTH0_AUDIENCE,
   issuerBaseURL: process.env.AUTH0_ISSUER,
   tokenSigningAlg: "RS256",
 });
-
 
 const app = express();
 
@@ -73,7 +71,6 @@ app.put("/api/users/:id", async (req, res) => {
   }
 });
 
-
 // Get a user by user ID
 app.get("/api/users/:id", async (req, res) => {
   const { id } = req.params;
@@ -114,7 +111,6 @@ app.get("/api/users/:userId/groups", async (req, res) => {
   });
   res.json(groups);
 });
-
 
 app.get("/api/groups/:id", async (req, res) => {
   const { id } = req.params;
@@ -195,7 +191,6 @@ app.post("/api/groups/:userId", async (req, res) => {
   }
 });
 
-
 // delete a group
 app.delete("/api/groups/:id", async (req, res) => {
   const { id } = req.params;
@@ -219,7 +214,6 @@ app.delete("/api/groups/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to delete group" });
   }
 });
-
 
 // get Profile information of authenticated user
 app.get("/me", requireAuth, async (req, res) => {
@@ -278,12 +272,11 @@ app.get("/api/groups/:groupId/posts", async (req, res) => {
 app.get("/api/post", async (req, res) => {
   const post = await prisma.post.findFirst({
     orderBy: {
-      postDate: 'desc' 
-    }
+      postDate: "desc",
+    },
   });
   res.json(post);
 });
-
 
 // create a post in a group
 app.post("/api/groups/:groupId/:userId/posts", async (req, res) => {
@@ -294,7 +287,7 @@ app.post("/api/groups/:groupId/:userId/posts", async (req, res) => {
     const post = await prisma.post.create({
       data: {
         content,
-        userId:  parseInt(userId), 
+        userId: parseInt(userId),
         groupId: parseInt(groupId),
       },
     });
@@ -324,8 +317,8 @@ app.delete("/api/posts/:id", async (req, res) => {
   }
 });
 
+const PORT = parseInt(process.env.PORT) || 8080;
 
-
-app.listen(8000, () => {
-  console.log("Server running on http://localhost:8000 🎉 🚀");
+app.listen(PORT, () => {
+  console.log("Server running on http://localhost:${PORT} 🎉 🚀");
 });
