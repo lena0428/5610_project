@@ -61,6 +61,7 @@ export default function Home() {
   useEffect(() => {
     fetchUsers();
     fetchPost();
+    fetchUser();
   }, []);
 
   function fetchUsers() {
