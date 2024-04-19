@@ -46,7 +46,7 @@ const HeaderWithoutLogin = ({ title }) => {
                     <FaUser /> Profile
                   </Nav.Link>
                   <Nav.Link
-                    onClick={() => logout({ returnTo: window.location.origin })}
+                    onClick={() => logout({ returnTo: "https://5610-project.vercel.app" })}
                   >
                     <RiLogoutBoxRLine /> Log Out
                   </Nav.Link>
