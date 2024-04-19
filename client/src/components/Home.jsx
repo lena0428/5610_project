@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
-import HeaderWithoutLogin from "./HeaderWithoutLogin";
-import Footer from "./Footer";
 import Message from "./Message";
 import GroupCard from "./GroupCard";
 import axios from "axios";
@@ -77,7 +75,7 @@ export default function Home() {
             {users.length > 0 ? users[users.length - 1].name : ""} to the
             Student Interest Group Platform!
           </Message>
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar onSearch={handleSearch} filteredGroups = {filteredGroups} isLogged={false}/>
           <Row>
             {filteredGroups.map((group) => (
               <Col key={group.id} sm={12} md={6} lg={4} xl={3}>

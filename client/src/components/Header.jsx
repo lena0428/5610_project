@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navbar, Nav, Container, Modal, Button } from "react-bootstrap";
-import { FaCloud, FaBug, FaUser } from "react-icons/fa";
+import { FaBug, FaUser, FaCloud } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import logo from "../assets/white_logo.svg";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -27,6 +27,9 @@ const Header = ({ title }) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
+              <Nav.Link onClick={handleWeatherPopupShow}>
+                <FaCloud /> Weather
+              </Nav.Link>
               {!isAuthenticated ? (
                 <Nav.Link onClick={() => loginWithRedirect()}>
                   <FaUser /> Sign In

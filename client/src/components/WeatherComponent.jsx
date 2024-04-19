@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import WeatherCard from './WeatherCard';
+import Loader from './Loader';
 
 
 const WeatherComponent = () => {
@@ -101,7 +102,7 @@ const WeatherComponent = () => {
           <WeatherCard weatherData={weatherData}></WeatherCard>
         </div>
       ) : (
-        <div className="loading">Loading...</div>
+        <Loader />
       )}
     </div>
   );

@@ -28,10 +28,18 @@ const GroupCard = ({ group }) => {
   return (
     <Card className="my-3 p-3 rounded">
       <Card.Body>
-        <Link to={!isAuthenticated ? (`/groups/${group.id}`): (`/app/groups/${group.id}`)}>
-          <Card.Img src={logo} variant="top" />
+        <Link
+          to={
+            !isAuthenticated ? `/groups/${group.id}` : `/app/groups/${group.id}`
+          }
+        >
+          <Card.Img alt="logo" src={logo} variant="top" />
         </Link>
-        <Link to={!isAuthenticated ? (`/groups/${group.id}`): (`/app/groups/${group.id}`)}>
+        <Link
+          to={
+            !isAuthenticated ? `/groups/${group.id}` : `/app/groups/${group.id}`
+          }
+        >
           <Card.Title
             as="div"
             className="group-title"
