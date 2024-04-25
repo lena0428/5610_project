@@ -56,16 +56,7 @@ const GroupDetailWithoutLogin = () => {
     loginWithRedirect();
   };
 
-  function fetchPosts() {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/groups/${groupId}/posts`)
-      .then((response) => {
-        setPosts(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
+  
 
   return (
     <div
